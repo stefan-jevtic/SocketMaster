@@ -20,7 +20,6 @@ app.use(express.static(path.join(__dirname, 'views')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-
 var USERS = [];
 var uid = 0;
 
