@@ -40,6 +40,8 @@
       client.onSocketOpen((ws)=>{
           console.log("socket is in the GAME")
       });
+
+      // the data you receive from server can be found in some of client.receiver methods
       client.connection((socket)=>{
 
           /* 1st parameter is name of receiver, second is data wich you wish to send*/

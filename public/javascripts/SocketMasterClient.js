@@ -13,7 +13,6 @@ MasterSocket.prototype.connection = function(callback){
 
     this.socket.onmessage = (message)=>{
         let json = JSON.parse(message.data);
-        // console.log(json)
         callback(json);
     }
 };
@@ -38,16 +37,16 @@ MasterSocket.prototype.onSocketOpen = function(callback){
         console.log("Connection established ");
         callback(ws);
     };
-}
+};
 
 /* this function is called after conection close */
 MasterSocket.prototype.onClose = function(callback){
     this.socket.onclose = function(err){
         callback(err)
     }
-}
+};
 
 /* close the connection of socket*/
 MasterSocket.prototype.closeNow = function(){
     this.socket.close();
-}
+};
