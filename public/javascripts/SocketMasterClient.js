@@ -18,10 +18,8 @@ MasterSocket.prototype.connection = function(callback){
     }
 };
 
-
 MasterSocket.prototype.receiver = function(event,socket ,callback){
 
-    // check if this event belongs to this socket
     if(event in socket){
         callback(socket)
     }
@@ -34,6 +32,13 @@ MasterSocket.prototype.send = function(event, data){
     this.socket.send(JSON.stringify(new_obj))
     return this;
 };
+
+MasterSocket.prototype.onSocketOpen = function(callback){
+    this.socket.onopen = (ws)=>{
+        console.log("Connection established ");
+        callback(ws);
+    };
+}
 
 /* this function is called after conection close */
 MasterSocket.prototype.onClose = function(callback){

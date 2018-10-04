@@ -19,43 +19,38 @@
       var connect = document.getElementById("connect");
       var disconnect = document.getElementById("disconnect");
 
-      var client= new MasterSocket({ip:'127.0.0.1',port:8080})
+      var client = new MasterSocket({ip:'127.0.0.1',port:8080})
 
+
+      /* close socket connection*/
       disconnect.addEventListener('click',()=>{
           client.closeNow();
       });
-
+      /* send message to defined event, look at app.js file */
       connect.addEventListener('click',()=>{
-          client.send('krastavac',{
+          /* if you wish to send data to the server, at specific event */
+          /* 1st parametar is event on server, second is data which you wish to send */
+          client.send('kuhinja',{
               data1:"paprikas",
               kljuc:"hej prase jedno"
           });
-          console.log("AAAAAAAAAAaa")
       });
 
-
       // connection is opened and ready to use
-      client.socket.onopen =  (ws) =>{
-          console.log("Connection established ");
-          /* if you wish to send data to the server, at specific event */
-          /* 1st parametar is event on server, second is data which you wish to send */
-          // client.send('kuhinja',{
-          //     data1:"paprikas",
-          //     kljuc:"hej prase jedno"
-          // });
-      };
+      client.onSocketOpen((ws)=>{
+          console.log("socket is in the GAME")
+      });
       client.connection((socket)=>{
 
           /* 1st parameter is name of receiver, second is data wich you wish to send*/
           client.receiver('supa', socket,(data)=>{
               console.log("*****************TO JE TAJ supa");
-              console.log(data)
+              console.log(data);
           });
 
           client.receiver('krastavac', socket,(data)=>{
               console.log("*****************TO JE TAJ KRASTAVAC");
-              console.log(data)
-              // client.closeNow();
+              console.log(data);
           });
       });
 
