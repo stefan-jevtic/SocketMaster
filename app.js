@@ -21,8 +21,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 
-var MasterSocket = require("./socketRedis/socketLib/Socket")
-
+var MasterSocket = require("./socketRedis/socketLib/Socket");
 let webSoc = new MasterSocket();
 
 webSoc.onConnection( socket =>{
@@ -49,26 +48,5 @@ webSoc.onConnection( socket =>{
 
 });
 
-
-
-// const WebSocket = require('ws');
-// const wss = new WebSocket.Server({ port: 8080 });
-//
-// wss.on('connection', function (ws) {
-//     ws.uid = ++uid;
-//     USERS[ws.uid] = ws
-//
-//     ws.on('message', function (message) {
-//         console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!: ');
-//         console.log("Number of users: "+USERS.length);
-//         console.log(JSON.parse(message));
-//
-//
-//         // saljemo drugom odgovo
-//         ws.send(JSON.stringify({kljuc:"NEKI MESSAGE"}));
-//     });
-//     // ws.send(JSON.stringify({kljuc:"NEKI MESSAGE"}));
-// });
-//
 
 module.exports = app;

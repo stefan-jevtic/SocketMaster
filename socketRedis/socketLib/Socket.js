@@ -82,6 +82,18 @@ class SocketMaster {
         });
     }
 
+    /* Send message to all clients who are connected to the server, to specific method , or without it*/
+    sendToAll(chanel = '', callback = null){
+
+        if(chanel === ''){
+            //posalji svima nebitno na kanal
+        }
+        else if (typeof chanel !== "undefined"){
+            //posalji svima kooji slusaju taj kanal
+        }
+    }
+
+
 
 
 
