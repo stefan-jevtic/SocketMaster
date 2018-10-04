@@ -71,10 +71,10 @@ class SocketMaster {
         return this;
     }
 
-
     disconnect(socket, callback){
-        this.server.on('close',(err)=>{
+        socket.on('close',(code,err)=>{
             delete this.CLIENT_UID[err.clientId];
+            console.log("AJDE BREEE-------------- OVO je za zatvaranje konekcije");
             callback(`client with uid: ${socket.clientId} is DELETED`)
         });
     }

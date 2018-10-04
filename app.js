@@ -45,7 +45,6 @@ webSoc.onConnection( socket =>{
         console.log(data);
     });
 
-    //problem
     webSoc.disconnect(socket, (msg)=>{
         console.log(msg);
     });
