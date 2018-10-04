@@ -35,6 +35,7 @@ class SocketMaster {
         }
         //manage all clients
         this.CLIENT_UID = {};
+        this.CLIENT_length = 0;
         this.server = new WebSocket.Server(config,callback);
     }
 
@@ -45,6 +46,7 @@ class SocketMaster {
                 //fatch from DB clientID
             }
             this.CLIENT_UID[ws.clientId] = ws;
+            this.CLIENT_length += 1;
             callback(ws);
         });
     }
@@ -64,16 +66,17 @@ class SocketMaster {
         })
     }
 
-    send(event, data){
+    send(event, socket,data){
         let data_obj = {};
         data_obj[event]= data;
-        this.server.send(JSON.stringify(data_obj));
+        socket.send(JSON.stringify(data_obj));
         return this;
     }
 
     disconnect(socket, callback){
         socket.on('close',(code,err)=>{
             delete this.CLIENT_UID[err.clientId];
+            this.CLIENT_length -=   1;
             console.log("AJDE BREEE-------------- OVO je za zatvaranje konekcije");
             callback(`client with uid: ${socket.clientId} is DELETED`)
         });
