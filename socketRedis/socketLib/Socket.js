@@ -34,7 +34,7 @@ class SocketMaster {
             config[key] = arguments[key];
         }
         //manage all clients
-        this.CLIENT_UID = {};
+        this.CLIENTS_UID = {};
         this.CLIENT_length = 0;
         this.server = new WebSocket.Server(config,callback);
     }
@@ -45,8 +45,8 @@ class SocketMaster {
                 ws.clientId = new Date().getTime();
                 //fatch from DB clientID
             }
-            this.CLIENT_UID[ws.clientId] = ws;
-            this.CLIENT_length += 1;
+            this.CLIENTS_UID[ws.clientId] = ws;
+            this.CLIENTS_length += 1;
             callback(ws);
         });
     }
@@ -75,22 +75,26 @@ class SocketMaster {
 
     disconnect(socket, callback){
         socket.on('close',(code,err)=>{
-            delete this.CLIENT_UID[err.clientId];
-            this.CLIENT_length -=   1;
+            delete this.CLIENTS_UID[err.clientId];
+            this.CLIENTS_length -=   1;
             console.log("AJDE BREEE-------------- OVO je za zatvaranje konekcije");
             callback(`client with uid: ${socket.clientId} is DELETED`)
         });
     }
 
-    /* Send message to all clients who are connected to the server, to specific method , or without it*/
-    sendToAll(chanel = '', callback = null){
+    /* Send message to all clients who are connected to the server, to specific method */
+    sendToAll(chanel = 'all', socket, data){
+        if(chanel === '')
+            return;
 
-        if(chanel === ''){
-            //posalji svima nebitno na kanal
+        let mySocket = socket.clientId;
+        for(let client in this.CLIENTS_UID){
+            if(client == mySocket)
+                continue;
+            let user_socket = this.CLIENTS_UID[client];
+            this.send(chanel, user_socket, data);
         }
-        else if (typeof chanel !== "undefined"){
-            //posalji svima kooji slusaju taj kanal
-        }
+
     }
 
 
