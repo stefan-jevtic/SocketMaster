@@ -26,7 +26,7 @@ class SocketMaster {
         //accept callback from arguments
         if (paramLength === 2)
             callback = arguments[1];
-        if (fs.exists('/socketRedis/config.js'))
+        if (fs.existsSync('/socketRedis/config.js'))
             throw  "You miss config.js file pls make it";
 
         //reinitialise config parameters passed by constructor
@@ -96,12 +96,6 @@ class SocketMaster {
         }
 
     }
-
-
-
-
-
-
 }
 
 module.exports = SocketMaster;
