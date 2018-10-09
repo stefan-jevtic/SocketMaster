@@ -29,12 +29,12 @@ webSoc.onConnection( socket =>{
     console.log(socket.clientId)
     /* Server sending sockets to the client with specific purpose, client accept those with client.receiver method*/
 
-    webSoc.event('krastavac',socket,(data)=>{
+    webSoc.event('krastavac', socket, data => {
         console.log("DOBRO je");
         console.log(data);
     });
 
-    webSoc.event('kuhinja',socket,(data)=>{
+    webSoc.event('kuhinja', socket, data => {
         console.log("U kuhinji je");
         console.log(data);
         webSoc.sendToAll('supa', socket, {ohMoj:"Oh moj bogo, koje stete"});
@@ -42,8 +42,7 @@ webSoc.onConnection( socket =>{
 
 
 
-
-    webSoc.disconnect(socket, (msg)=>{
+    webSoc.disconnect(socket, msg => {
         console.log(msg);
     });
 

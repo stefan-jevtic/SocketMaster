@@ -40,8 +40,8 @@ class SocketMaster {
     }
 
     onConnection(callback){
-        this.server.on('connection',(ws)=>{
-            if(typeof ws.clientId == "undefined"){
+        this.server.on('connection', ws => {
+            if(typeof ws.clientId === undefined){
                 ws.clientId = new Date().getTime();
                 //fatch from DB clientID
             }
@@ -52,7 +52,7 @@ class SocketMaster {
     }
 
     event(name, ws, callback){
-        ws.on('message',(data)=>{
+        ws.on('message', data => {
             data = JSON.parse(data);
             //check if event exist on server and foreword if its true
             if(name in data){
@@ -66,7 +66,7 @@ class SocketMaster {
         })
     }
 
-    send(event, socket,data){
+    send(event, socket, data){
         let data_obj = {};
         data_obj[event]= data;
         socket.send(JSON.stringify(data_obj));
@@ -74,7 +74,7 @@ class SocketMaster {
     }
 
     disconnect(socket, callback){
-        socket.on('close',(code,err)=>{
+        socket.on('close', (code, err) => {
             delete this.CLIENTS_UID[err.clientId];
             this.CLIENTS_length -=   1;
             console.log("AJDE BREEE-------------- OVO je za zatvaranje konekcije");

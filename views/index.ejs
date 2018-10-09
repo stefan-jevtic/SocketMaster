@@ -23,11 +23,11 @@
 
 
       /* close socket connection*/
-      disconnect.addEventListener('click',()=>{
+      disconnect.addEventListener('click', () => {
           client.closeNow();
       });
       /* send message to defined event, look at app.js file */
-      connect.addEventListener('click',()=>{
+      connect.addEventListener('click', () => {
           /* if you wish to send data to the server, at specific event */
           /* 1st parametar is event on server, second is data which you wish to send */
           client.send('kuhinja',{
@@ -37,15 +37,15 @@
       });
 
       // connection is opened and ready to use
-      client.onSocketOpen((socket)=>{
+      client.onSocketOpen(socket => {
           console.log("socket is in the GAME")
       });
 
       // the data you receive from server can be found in some of client.receiver methods
-      client.connection((socket)=>{
-
+      client.connection(socket => {
+          console.log(socket)
           /* 1st parameter is name of receiver, second is data wich you wish to send*/
-          client.receiver('supa', socket,(data)=>{
+          client.receiver('supa', socket, data => {
               console.log("*****************TO JE TAJ supa");
               console.log(data);
           });
@@ -56,11 +56,11 @@
           });
       });
 
-      client.onClose( err=>{
+      client.onClose(err => {
           console.log("This client get disconnected form server!")
       });
 
-      client.onerror =  (error)=>{
+      client.onerror = error => {
           console.log("Some Error occurred!!");
       }
 
